@@ -48,9 +48,6 @@ def plot_decision_boundary(w, b, X, y, degree):
     # Plot z = 0.5
     plt.contour(u,v,z, levels = [0.5], colors="g")
 
-
-import numpy as np
-
 def map_feature(X1, X2, degree = 2):
     X1 = np.atleast_1d(X1)
     X2 = np.atleast_1d(X2)
@@ -63,4 +60,22 @@ def map_feature(X1, X2, degree = 2):
 
     return np.stack(out, axis=1)
 
-        
+
+# Runs classifcation model against a set x
+def predict_classification(w, b, x):
+    m, n = x.shape
+    p = np.zeros(m)
+
+    for idx in range(m):
+        zwb_x = np.dot(w, x[idx]) + b
+        fwb_x = sig(zwb_x)
+
+        p[idx] = fwb_x >= .05
+
+    return p
+
+# Evaluates the performance of a classification model againts train_y
+def evaluate_classification(w, b, x, y_train):
+    p = predict_classification(w, b, x)
+
+    return np.mean(p == y_train) * 100
