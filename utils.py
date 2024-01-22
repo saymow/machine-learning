@@ -3,9 +3,8 @@ import matplotlib.pyplot as plt
 
 def load_data(path):
     data = np.loadtxt(path, delimiter = ',')
-    headerless_data = data[1:]
-    x = headerless_data[:,:-1]
-    y = headerless_data[:,-1]
+    x = data[:,:-1]
+    y = data[:,-1]
     return x, y
 
 def sig(z):
